@@ -1,17 +1,6 @@
 """prime numbers upto using"""
 
 
-def fib(b):
-    """fib"""
-    m = 1
-    li = []
-    n = 0
-    for _ in range(0, b + 1):
-        m, n = n, m + n
-        li.append(m)
-    return li
-
-
 def nested_prime(n):
     """nested prime"""
     li = [
@@ -69,16 +58,27 @@ def list_of_lists(data):
     return start + end
 
 
-def fib_squares(a, b):
+def fib(a):
+    """fib"""
+    m = 1
+    li = []
+    n = 0
+    for _ in range(0, a + 1):
+        m, n = n, m + n
+        li.append(m)
+    return li
+
+
+def fib_squares(a, k):
     """fib_squares"""
-    li = [i**2 if i in fib(b) else i for i in range(a, b + 1)]
+    li = [i**2 if i in fib(k) else i for i in range(a, k + 1)]
     return li
 
 
 def set_complement(*args, verbose=True):
     """set_comlement"""
     # ans = [ [j for j in args[i] if j not in args[i+1] ] for i in range(len(args)-1)]
-    """ans = [[j for j in range(len(str(i))) if args[i][j] not in args[((i*-1)-1)]] for i in range(len(args))]"""
+    #ans = [[j for j in range(len(str(i))) if args[i][j] not in args[((i*-1)-1)]] for i in range(len(args))]
     a = [set(i) for i in args]
     ans = [list(a[i] - a[j]) for i in range(len(str(a))) for j in range(i + 1, len(a))]
 
@@ -86,9 +86,7 @@ def set_complement(*args, verbose=True):
         for i in args:
             ans.append(i)
         return ans
-    else:
-        return ans
-
+    return ans
 
 def set_intersection(*args, verbose=True):
     """set_int"""
@@ -98,35 +96,34 @@ def set_intersection(*args, verbose=True):
         for i in args:
             ans.append(i)
         return ans
-    else:
-        return ans
+    return ans
 
 
-def checK_equal(dict1, dict2):
+def check_equal(dict1, dict2):
     """set_int"""
     if isinstance(dict1, dict2):
         return -1
-
-
+    
 def dict_compare(*args):
     """set_int"""
     for i in range(len(args)):
         for j in range(i + 1, len(args)):
-            check = checK_equal(args[i], args[j])
+            # check = check_equal(args[i], args[j])
+       
             return -1
 
-            # base code
+
+"""pending"""
+# base code
 
 
 def dict_from_lists(list1, list2):
     """set_int"""
-    # data = { (i for i in list1 ) : ( str(j) for j in list2) for k in range(len(list1)+1)  }
     if len(list1) < len(list2):
         limit = list2
     else:
         limit = list1
     """extra code , this condition can be put in dict comprihension if required"""
-
     data = {list1[i]: list2[i] if list2[i] else " " for i in range(len(limit))}
     return data
 
@@ -135,7 +132,7 @@ def my_secret(message):
     """set_int"""
     if len(message) > 81:
         message = message[:81]
-    mess = message.replace(" ", "")
+    mess = message.replace(" ","")
     secret_message = ""
     secret_message += "\n".join(mess[i : i + 7] for i in range(0, len(mess), 7))
     # secret_message += f'{mess[i:i+7] for i in range(0,len(mess),7)} '
@@ -143,23 +140,21 @@ def my_secret(message):
     return secret_message
 
 
-def cal(data, ph):
-    """set_int"""
-    avl = [data[int(i)] for i in ph]
+def cal(data, val):
+    """Generate all possible words for a given phone number"""
+    avl = [data[int(i)] for i in val if int(i) in data]
     ans = []
     for m in range(len(avl)):
-        for j in range(len(avl[m])):
-            f_sum = avl[m][j]
-            s_sum = " "
-            for i in range(m + 1, len(avl)):
-                s_sum += avl[i][j]
-        f_sum += s_sum
-        ans.append(f_sum)
+        s_sum = ""
+        for i in range(1, len(avl[m])):
+            for j in range(len(avl)):
+                s_sum += avl[j][i]
+            ans.append(avl[m][i] + s_sum)
     return ans
 
 
 def phone_words(ph1, ph2):
-    """set_int"""
+    """Generate phone words for given phone numbers"""
     data = {
         2: "ABC",
         3: "DEF",
@@ -171,9 +166,13 @@ def phone_words(ph1, ph2):
         9: "WXY",
     }
 
-    # xymat = [0,1,"ABC","DEF","GHI","jKL","MNO","PRS","TUV","WXY"]
-    output = {i: cal(data, i) if "1" not in i or "0" not in i  else [] for i in [ph1, ph2]}
+    output = {
+        val: cal(data, val) if "1" not in val and "0" not in val else []
+        for val in [ph1, ph2]
+    }
     return output
+
+"""need to work on the code """
 
 
 if __name__ == "__main__":
@@ -199,4 +198,4 @@ if __name__ == "__main__":
             "If man was meant to stay on the ground god would have given us roots"
         )
     )
-    print(phone_words("1234567", " 2345678"))
+    print(phone_words("1234567", "2345678"))
