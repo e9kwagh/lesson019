@@ -100,21 +100,19 @@ def set_intersection(*args, verbose=True):
 
 
 def check_equal(dict1, dict2):
-    """set_int"""
+    """incomplete """
     if isinstance(dict1, dict2):
         return -1
     
+
 def dict_compare(*args):
-    """set_int"""
+    """incomplete had a logical error"""
     for i in range(len(args)):
         for j in range(i + 1, len(args)):
             # check = check_equal(args[i], args[j])
        
             return -1
 
-
-"""pending"""
-# base code
 
 
 def dict_from_lists(list1, list2):
